@@ -4,11 +4,11 @@ from PIL import Image
 import socket
 import zlib
 import threading
-from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt6 import QtCore, QtWidgets, QtGui
 from PIL.ImageQt import ImageQt
-from PyQt5.QtGui import QMovie
+#from PyQt5.QtGui import QMovie
 HOST = '127.0.0.1'			#접속ip
-PORT = 9900			#접속포트
+PORT = 9001			#접속포트
 cursur_xy = [0,0]			#커서 좌표
 rel_cusur_ratio = [0,0]		#커서 위치 비율
 screen_size = 0.7			#스크린샷 크기
@@ -51,12 +51,12 @@ class character(QtWidgets.QMainWindow):
 		self.imagemanager_pil()
 
 	def setflag(self, Tool=False, FWH=False, opacity=1):				#플래그 및 투명도 지정함수
-		if (Tool): self.setWindowFlags(self.windowFlags() | QtCore.Qt.Tool)							#작업표시줄에 아이콘이 표시되지 않음
-		else: self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.Tool)
-		if (FWH): self.setWindowFlags(self.windowFlags() | QtCore.Qt.FramelessWindowHint)			#윈도우 틀과 타이틀바 제거
-		else: self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.FramelessWindowHint)
-		if (self.on_top): self.setWindowFlags(self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)		#윈도우가 항상 맨 위에 있음
-		else: self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowStaysOnTopHint)
+		if (Tool): self.setWindowFlags(self.windowFlags() | QtCore.Qt.WindowType.Tool)							#작업표시줄에 아이콘이 표시되지 않음
+		else: self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowType.Tool)
+		if (FWH): self.setWindowFlags(self.windowFlags() | QtCore.Qt.WindowType.FramelessWindowHint)			#윈도우 틀과 타이틀바 제거
+		else: self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowType.FramelessWindowHint)
+		if (self.on_top): self.setWindowFlags(self.windowFlags() | QtCore.Qt.WindowType.WindowStaysOnTopHint)		#윈도우가 항상 맨 위에 있음
+		else: self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowType.WindowStaysOnTopHint)
 		self.setWindowOpacity(opacity)
 
 	def resizeEvent(self, event):
@@ -146,4 +146,4 @@ th_receive.start()
 app = QtWidgets.QApplication(sys.argv)		#윈도우 창
 window = character(size=1, on_top=False)
 window.run()
-sys.exit(app.exec_())
+sys.exit(app.exec())
