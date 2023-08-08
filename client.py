@@ -7,7 +7,7 @@ import threading
 from PyQt6 import QtCore, QtWidgets, QtGui
 from PIL.ImageQt import ImageQt
 #from PyQt5.QtGui import QMovie
-HOST = '127.0.0.1'			#접속ip
+HOST = '175.192.214.36'			#접속ip
 PORT = 9001			#접속포트
 cursur_xy = [0,0]			#커서 좌표
 rel_cusur_ratio = [0,0]		#커서 위치 비율
@@ -21,7 +21,7 @@ class character(QtWidgets.QMainWindow):
 	def __init__(self, size=1.0, on_top=False):
 		super(character, self).__init__()
 		self.opacity=1								#투명도
-		self.name = "원격제어"						#창 이름
+		self.name = "Capibara"						#창 이름
 		self.size = size							#크기
 		self.on_top = on_top						#항상 위에 있을지
 		self.run_watch = 0							#실행타이머
@@ -81,7 +81,7 @@ class character(QtWidgets.QMainWindow):
 		rel_cusur_ratio = [(event.pos().x()-self.label.x())/self.label.width(), (event.pos().y()-self.label.y())/self.label.height()]
 	def mouseMoveEvent(self, event):
 		global cursur_xy, rel_cusur_ratio
-		self.label.move(int(self.label.x() + (event.x() - cursur_xy[0])), int(self.label.y() + (event.y() - cursur_xy[1])))
+		self.label.move(int(self.label.x() + (event.position().x() - cursur_xy[0])), int(self.label.y() + (event.position.y() - cursur_xy[1])))
 		cursur_xy = [event.x(), event.y()]
 		rel_cusur_ratio = [(event.pos().x()-self.label.x())/self.label.width(), (event.pos().y()-self.label.y())/self.label.height()]
 
